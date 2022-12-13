@@ -1,0 +1,240 @@
+<html>
+
+    <head>
+
+        <title>Login</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <script src="jquery.min.js"></script>
+
+        <style type="text/css">
+
+            #siteTitle{
+
+                font-family:'Pacifico', cursive;
+                color:lightgrey;
+                padding-left: 4px;
+
+            }
+
+            .jumbotron{
+
+                background-image: url(bgi.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height:96%;
+
+            }
+
+            .form-control{
+
+                width:50%;
+
+            }
+
+            .container{
+
+                margin-left:25%;
+                margin-top:5%;
+
+            }
+
+            #errorMessage{
+
+                width:50%;
+
+            }
+
+             .hidden{
+
+                display: none;
+            }
+            .grey-color{
+
+              color : lightgrey;
+
+            }
+            label{
+
+              color : lightgreen;
+
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-light navbar-toggleable-md bg-inverse">
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#loginSection" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <a class="navbar-brand" href="#">
+
+                <img src="logo2.jpg" width="40" height="40" class="d-inline-block align-top" alt="Logo">
+
+                <span id="siteTitle">Temp $olutions</span>
+
+            </a>
+
+            <div class="collapse navbar-collapse" id="loginSection">
+
+                <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item dropdown"><a class="nav-link dropdown-toggle text-white" href="#" id="registerDropdown" data-toggle="dropdown">Register</a>
+
+                    <div class="dropdown-menu">
+
+                        <a class="dropdown-item" href="userregister.html">Individual</a>
+
+                        <a class="dropdown-item" href="shopregister.html">Commercial</a>
+
+                    </div>
+
+                    </li>
+
+                    <li class="nav-item">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid">
+
+            <div class="container">
+
+                <h2 class="grey-color"><u>Login</u></h2><br>
+
+                <div class="alert hidden" role="alert" id="errorMessage"></div>
+
+                <div class="form-group">
+
+                    <label for="emailID">E Mail ID:</label>
+
+                    <input type="email" id="emailID" class="form-control" placeholder="Your Mail ID">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">Password:</label>
+
+                    <input type="password" id="password" class="form-control" placeholder="Password">
+
+                </div>
+
+                <input type="submit" id="loginBtn" class="btn btn-success" value="Login"><br><br>
+
+                <a class="btn btn-link" href="userregister.html">&gt;&gt;&nbsp;&nbsp;Register as an Individual</a><br>
+
+                <a class="btn btn-link" href="shopregister.html">&gt;&gt;&nbsp;&nbsp;Register as a Shop</a>
+
+            </div>
+
+        </div>
+
+                <script type="text/javascript">
+
+                    $(function(){
+
+                       $("#loginBtn").click(function(){
+
+                           var email=$("#emailID").val();
+
+                           var pwd=$("#password").val();
+
+                           var emailRegex=/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                           if(email=="" || pwd=="" || !emailRegex.test(email)){
+
+                               $("#errorMessage").removeClass("hidden");
+
+                               $("#errorMessage").addClass("alert-danger");
+
+                               $("#errorMessage").html("E Mail or password is invalid.");
+
+                           }else{
+
+                               $("#loginBtn").val("Signing in...");
+
+                               $.ajax({
+
+                                  url:"/login",
+
+                                   data:{
+
+                                       mailid:email,
+
+                                       password:pwd
+
+                                   },
+
+                                   method:"POST",
+
+                                   statusCode:{
+
+                                       200:function(response){
+
+                                         window.location = response.source;
+
+                                       },
+
+                                       403:function(){
+
+                                           $("#errorMessage").removeClass("hidden");
+
+                                           $("#loginBtn").val("Sign In");
+
+                                           $("#errorMessage").addClass("alert-danger");
+
+                                           $("#errorMessage").html("E Mail ID and password do not match.");
+
+                                       },
+
+                                       500:function(){
+
+                                           $("#errorMessage").removeClass("hidden");
+
+                                           $("#loginBtn").val("Sign In");
+
+                                           $("#errorMessage").addClass("alert-danger");
+
+                                           $("#errorMessage").html("Unexpected error. Try again later.");
+
+
+                                       }
+
+                                   }
+
+                               });
+
+                           }
+                       });
+
+                    });
+
+                </script>
+
+        </body>
+
+</html>

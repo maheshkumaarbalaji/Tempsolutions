@@ -1,0 +1,254 @@
+<html>
+
+    <head>
+
+        <title>{{name}}</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Merriweather" rel="stylesheet">
+
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <script src="jquery.min.js"></script>
+
+        <style type="text/css">
+
+            #siteTitle{
+
+                font-family:'Pacifico', cursive;
+                color:lightgrey;
+                padding-left: 4px;
+
+            }
+
+            .jumbotron{
+
+                background-image: url(bgi.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                height:95%;
+
+            }
+
+            .image-block{
+
+                width: 35%;
+                height: 90%;
+                float: left;
+                margin : 5px solid black;
+
+            }
+
+            #productImage{
+
+                height : 88%;
+                width : 90%;
+
+            }
+
+            .product-desc{
+
+                width: 65%;
+                height: 90%;
+                float:right;
+                font-family:'Merriweather', Serif;
+                padding:10px;
+                margin-top : 5px solid black;
+                margin-right: 5px solid black;
+                margin-bottom : 5px solid black;
+
+            }
+
+            .product-desc .info{
+
+                font-family: 'Merriweather', Serif;
+                font-size:18px;
+
+            }
+
+            .d-md-flex{
+
+                flex-direction: column;
+                line-height: 35px;
+
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-light navbar-toggleable-md bg-inverse">
+
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#newProduct" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+              <span class="navbar-toggler-icon"></span>
+
+          </button>
+
+            <a class="navbar-brand" href="#">
+
+                <img src="logo2.jpg" width="40" height="40" class="d-inline-block align-top" alt="Logo">
+
+                <span id="siteTitle">Temp $olutions</span>
+
+            </a>
+
+            <div class="navbar navbar-collapse" id="newProduct">
+
+              <ul class="navbar-nav ml-auto" id="menuList">
+
+
+
+              </ul>
+
+            </div>
+
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid">
+
+            <div class="container">
+
+                <div class="image-block">
+
+                    <img class="rounded img-fluid" src="{{ImgPath}}" id="productImage">
+
+                </div>
+
+                <div class="product-desc">
+
+                    <h3>{{name}}</h3><br>
+
+                    <div class="d-md-flex flex-column">
+
+                        <div class="info"><b>About the product</b>:&nbsp;&nbsp;{{description}} </div><br>
+
+                        <div class="info"><b>Owner name</b>:&nbsp;&nbsp;{{owner}} </div><br>
+
+                        <div class="info"><b>Cost of product</b>:&nbsp;&nbsp;Rs.{{rent}} </div><br>
+
+                        <div class="info"><b>Period of rental</b>:&nbsp;&nbsp;{{period}} month(s). </div><br><br>
+
+                    </div>
+
+                    <form action="/rent-product" method="post">
+
+                        <input type="hidden" name="rent" value="{{rent}}">
+
+                        <input type="hidden" name="productname" value="{{name}}">
+
+                        <input type="hidden" name="period" value="{{period}}">
+
+                        <input type="hidden" name="id" value="{{_id}}">
+
+					              <input type="submit" class="btn btn-secondary" value="Rent Product">
+
+					          </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <script type="text/javascript">
+
+        function loadSection(){
+
+          $.ajax({
+
+            url:"/check-login",
+            method:"GET",
+            statusCode:{
+
+              200:function(){
+
+                let content = $("#menuList").html();
+                content += '<li class="nav-item"><a class="nav-link text-white" href="logout.html">Logout</a></li>';
+                $("#menuList").html(content);
+
+              },
+              401:function(){
+
+                let content = $("#menuList").html();
+                content += '<li class="nav-item"><a class="nav-link text-white" href="login.html">Login</a></li>';
+                $("#menuList").html(content);
+
+              }
+
+            }
+
+          });
+
+        }
+
+        $(window).on("load",function(){
+
+            $(".image-block").height($(".product-desc").height());
+
+              if($(window).width() < 720){
+
+                  $(".product-desc").css("float","left");
+
+                  $(".product-desc").css("width","100%");
+
+                  $(".image-block").css("width","100%");
+
+              }else{
+
+                  $(".image-block").css("width","35%");
+
+                  $(".product-desc").css("float","right");
+
+                  $(".product-desc").css("width","65%");
+
+              }
+
+              loadSection();
+
+
+              $(window).resize(function(){
+
+                $(".image-block").height($(".product-desc").height());
+
+                if($(window).width() < 720){
+
+                  $(".product-desc").css("float","left");
+
+                  $(".product-desc").css("width","100%");
+
+                  $(".image-block").css("width","100%");
+
+                }else{
+
+                  $(".image-block").css("width","35%");
+
+                  $(".product-desc").css("float","right");
+
+                  $(".product-desc").css("width","65%");
+
+                }
+
+              });
+
+            });
+
+
+        </script>
+
+    </body>
+
+</html>

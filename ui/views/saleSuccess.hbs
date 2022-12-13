@@ -1,0 +1,160 @@
+<html>
+
+    <head>
+
+        <title>Sale Status</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <script src="jquery.min.js"></script>
+
+        <style type="text/css">
+
+            #siteTitle{
+
+                font-family:'Pacifico', cursive;
+                color:lightgrey;
+                padding-left: 4px;
+
+            }
+
+            .jumbotron{
+
+                background-image: url(bgi.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                min-height:91%;
+
+            }
+
+            .sale-success-message{
+
+              color:white;
+              font-size: 20px;
+
+            }
+
+            .sale-info{
+
+              color : black;
+              font-size:15px;
+
+            }
+
+            d-md-flex{
+
+              flex-direction: column;
+              line-height: 35px;
+
+            }
+
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-light navbar-toggleable-md bg-inverse">
+
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#newProduct" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+              <span class="navbar-toggler-icon"></span>
+
+          </button>
+
+            <a class="navbar-brand" href="#">
+
+                <img src="logo2.jpg" width="40" height="40" class="d-inline-block align-top" alt="Logo">
+
+                <span id="siteTitle">Temp $olutions</span>
+
+
+            </a>
+
+            <div class="navbar navbar-collapse" id="newProduct">
+
+              <ul class="navbar-nav ml-auto" id="menuList">
+
+
+
+              </ul>
+
+            </div>
+
+
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid">
+
+            <div class="container">
+
+              <div class="sale-success-message">
+
+                <img src="glyphicons-194-ok-sign.png" style="float:left;margin-right:15px;">
+                The sale was completed successfully.
+
+              </div>
+
+              <div class="d-md-flex flex-column">
+
+                <div class="sale-info">1.Product Name : {{productName}}</div><br>
+
+                <div class="sale-info">2.Cost : {{cost}} [ inclusive of 12% service tax]</div><br>
+
+                <div class="sale-info">3.Rental Period : {{period}} month(s).</div><br>
+
+              </div>
+
+            </div>
+
+        </div>
+
+        <script type = "text/javascript">
+
+          $(window).on("load",function(){
+
+              $.ajax({
+
+                url:"/check-login",
+                method:"GET",
+                statusCode:{
+
+                  200:function(){
+
+                    let content = $("#menuList").html();
+                    content += '<li class="nav-item"><a class="nav-link text-white" href="logout.html">Logout</a></li>';
+                    $("#menuList").html(content);
+
+                  },
+                  401:function(){
+
+                    let content = $("#menuList").html();
+                    content += '<li class="nav-item"><a class="nav-link text-white" href="login.html">Login</a></li>';
+                    $("#menuList").html(content);
+
+                  }
+
+                }
+
+              });
+
+          });
+
+        </script>
+
+    </body>
+
+</html>

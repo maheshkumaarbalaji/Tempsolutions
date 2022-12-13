@@ -1,0 +1,319 @@
+<html>
+
+    <head>
+
+        <title>Register Shop</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <script src="jquery.min.js"></script>
+
+        <style type="text/css">
+
+            #siteTitle{
+
+                font-family:'Pacifico', cursive;
+                color:lightgrey;
+                padding-left: 4px;
+
+            }
+
+            .jumbotron{
+
+                background-image: url(bgi.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                min-height: 96%;
+
+            }
+
+            .form-control{
+
+                width:50%;
+
+            }
+
+            .container{
+
+                margin-left:25%;
+                margin-top:1%;
+
+            }
+
+            #errorMessage{
+
+                width:50%;
+
+            }
+
+            .hidden{
+
+                display: none;
+            }
+
+            textarea{
+
+                resize: none;
+
+            }
+
+            .grey-color{
+
+              color : lightgrey;
+
+            }
+
+            label{
+
+              color : white;
+
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-light navbar-toggleable-md bg-inverse">
+
+            <a class="navbar-brand" href="#">
+
+                <img src="logo2.jpg" width="40" height="40" class="d-inline-block align-top" alt="Logo">
+
+                <span id="siteTitle">Temp $olutions</span>
+
+            </a>
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#loginSection" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <div class="collapse navbar-collapse">
+
+                <ul class="navbar-nav ml-auto">
+
+                <li class="nav-item"><a class="btn btn-link text-white" href="login.html">Login</a></li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid">
+
+            <div class="container">
+
+                <h2 class="grey-color"><u>Register Shop</u></h2>
+
+                <div class="alert hidden" role="alert" id="errorMessage"></div>
+
+                <div class="form-group">
+
+                    <label for="shopName">Shop name:</label>
+
+                    <input type="text" id="shopName" class="form-control" placeholder="Shop Name">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="mailid">E Mail ID:</label>
+
+                    <input type="email" id="mailid" class="form-control" placeholder="E Mail ID">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password">Password:</label>
+
+                    <input type="password" id="password" class="form-control" placeholder="Password">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="phone">Phone Number:</label>
+
+                    <input type="text" id="phone" class="form-control" placeholder="Phone Number">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="address">Full Address:</label>
+
+                    <textarea class="form-control" id="address" rows="3" ></textarea>
+
+                </div>
+
+                <button type="submit" id="registerBtn" class="btn btn-success">Register</button>
+
+            </div>
+
+        </div>
+
+                <script type="text/javascript">
+
+                    $(function(){
+
+                       $("#registerBtn").click(function(){
+
+                           var shopName=$("#shopName").val();
+
+                           var mailid=$("#mailid").val();
+
+                           var pwd=$("#password").val();
+
+                           var phone = $("#phone").val();
+
+                           var address=$("#address").val();
+
+                           var regexPhone = /^[0-9]{10}$/
+
+                           var regexName=/^[a-zA-Z]+([a-zA-Z\t]+)*$/;
+
+                           var emailRegex=/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                           if(shopName == ""){
+
+                               $("#errorMessage").removeClass("hidden");
+
+                               $("#errorMessage").addClass("alert-danger");
+
+                               $("#errorMessage").html("Shop Name should not be empty.");
+
+                           }else if(mailid == ""){
+
+                               $("#errorMessage").removeClass("hidden");
+
+                                $("#errorMessage").addClass("alert-danger");
+
+                                $("#errorMessage").html("Shop Name should not be empty.");
+
+                            }else if(pwd == ""){
+
+                                $("#errorMessage").removeClass("hidden");
+
+                                $("#errorMessage").addClass("alert-danger");
+
+                               $("#errorMessage").html("Password should not be empty.");
+
+
+                            }else if(address == ""){
+
+                                $("#errorMessage").removeClass("hidden");
+
+                                $("#errorMessage").addClass("alert-danger");
+
+                               $("#errorMessage").html("Address should not be empty.");
+
+
+                            }else if(phone == ""){
+
+                              $("#errorMessage").removeClass("hidden");
+
+                              $("#errorMessage").addClass("alert-danger");
+
+                             $("#errorMessage").html("Phone Number should not be empty.");
+
+                            }
+                            else if(!emailRegex.test(mailid)){
+
+                                $("#errorMessage").removeClass("hidden");
+
+                                $("#errorMessage").addClass("alert-danger");
+
+                               $("#errorMessage").html("Enter a valid E Mail ID.");
+
+
+                            }else if(!regexName.test(shopName)){
+
+                                $("#errorMessage").removeClass("hidden");
+
+                                $("#errorMessage").addClass("alert-danger");
+
+                               $("#errorMessage").html("Enter a valid Shop Name.");
+
+
+                            }else if(!regexPhone.test(phone)){
+
+                              $("#errorMessage").removeClass("hidden");
+
+                              $("#errorMessage").addClass("alert-danger");
+
+                             $("#errorMessage").html("Enter a valid Phone Number.");
+
+                            }else{
+
+                                $("#registerBtn").html("Registering...");
+
+                                $.ajax({
+
+                                   url:"/register-user",
+
+                                    data:{
+
+                                        mailid : mailid,
+
+                                        name : shopName,
+
+                                        password : pwd,
+
+                                        phone : phone,
+
+                                        address : address
+
+                                    },
+
+                                    method:"POST",
+
+                                    statusCode:{
+
+                                        200 : function(response){
+
+                                          window.location = response.source;
+
+                                        },
+
+                                        403 : function(){
+
+                                            $("#errorMessage").removeClass("hidden");
+
+                                            $("#errorMessage").addClass("alert-danger");
+
+                                            $("#errorMessage").html("An unexpected error occurred. Try again later.");
+
+                                        }
+
+                                    }
+
+                                });
+
+                            }
+
+                       });
+
+                    });
+
+                </script>
+
+        </body>
+
+</html>

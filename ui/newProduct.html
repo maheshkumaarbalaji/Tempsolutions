@@ -1,0 +1,429 @@
+<html>
+
+    <head>
+
+        <title>Add new Product</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <script src="jquery.min.js"></script>
+
+        <style type="text/css">
+
+            #siteTitle{
+
+                font-family:'Pacifico', cursive;
+                color:lightgrey;
+                padding-left: 4px;
+
+            }
+
+            .jumbotron{
+
+                background-image: url(bgi.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                min-height:96%;
+
+            }
+
+            .form-control{
+
+                width:50%;
+
+            }
+
+            .container{
+
+                margin-left:25%;
+                margin-top:5%;
+
+            }
+
+            #errorMessage{
+
+                width:50%;
+
+            }
+
+             .hidden{
+
+                display: none;
+
+            }
+            .grey-color{
+
+              color : lightgrey;
+
+            }
+            label{
+
+              color : black;
+
+            }
+            textarea{
+
+              resize: none;
+
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-light navbar-toggleable-md bg-inverse">
+
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#loginSection" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+                <span class="navbar-toggler-icon"></span>
+
+            </button>
+
+            <a class="navbar-brand" href="#">
+
+                <img src="logo2.jpg" width="40" height="40" class="d-inline-block align-top" alt="Logo">
+
+                <span id="siteTitle">Temp $olutions</span>
+
+            </a>
+
+            <div class="collapse navbar-collapse" id="loginSection">
+
+              <ul class="navbar-nav ml-auto" id="menuList">
+
+
+
+              </ul>
+
+            </div>
+
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid">
+
+            <div class="container">
+
+              <form id="productForm" enctype="multipart/form-data">
+
+                <h2 class="grey-color"><u>Add new Product</u></h2><br>
+
+                <div class="alert hidden" role="alert" id="errorMessage"></div>
+
+                <div class="form-group">
+
+                    <label for="name">Name:</label>
+
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Product Name">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="category">Category:</label>
+
+                    <input type="text" id="category" name="category" class="form-control" placeholder="Product Category">
+
+                    <small id="Help" class="form-text text-warning">For different categories, see the "categories" page.</small>
+
+                </div>
+
+                <div class="form-group">
+
+                  <label for="productImage">File input</label>
+
+                  <input type="file" class="form-control-file" name="productImage" id="productImage" aria-describedby="fileHelp">
+
+                  <small id="fileHelp" class="form-text text-warning">Upload the Product Image here.</small>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="rent">Rent:</label>
+
+                    <div class="input-group-md">
+
+                      <input type="text" class="form-control" name="rent" id="rent" aria-label="Amount">
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="period">Rental Period:</label>
+
+                    <div class="input-group-md">
+
+                      <input type="text" class="form-control" name="period" id="period" aria-label="Amount ">
+
+                      <small class="form-text text-warning">in month(s)</small>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="description">Product Description:</label>
+
+                    <textarea class="form-control" name="description" id="description" rows="3" ></textarea>
+
+                </div>
+
+                <input type="submit" id="addProduct" name="addProduct" class="btn btn-success" value="Add Product"><br><br>
+
+              </form>
+
+            </div>
+
+        </div>
+
+        <script type="text/javascript">
+
+        function loadSection(){
+
+          $.ajax({
+
+            url:"/check-login",
+            method:"GET",
+            statusCode:{
+
+              200:function(){
+
+                let content = $("#menuList").html();
+                content += '<li class="nav-item"><a class="nav-link text-white" href="logout.html">Logout</a></li>';
+                $("#menuList").html(content);
+
+              },
+              401:function(){
+
+                let content = $("#menuList").html();
+                content += '<li class="nav-item"><a class="nav-link text-white" href="login.html">Login</a></li>';
+                $("#menuList").html(content);
+
+              }
+
+            }
+
+          });
+
+        }
+
+        function addProductAJAX(){
+
+          var formData = new FormData($("#productForm")[0]);
+
+          $("#addProduct").val("Adding Product...");
+
+          $.ajax({
+
+              url : '/add-product',
+
+              data : formData,
+
+              method : "POST",
+
+              contentType : false,
+
+              processData : false,
+
+              statusCode : {
+
+                  200 : function(){
+
+                    window.location="categories.html";
+
+                  },
+
+                  401 : function(){
+
+                  window.location = "login.html";
+
+                  },
+
+                  403 : function(){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#addProduct").val("Add Product");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("An error occurred. Try again later.");
+
+                  }
+
+              }
+
+          });
+
+
+        }
+
+        $(window).on("load",function(){
+
+              loadSection();
+
+              $("#productForm").submit(function(e){
+
+                  e.preventDefault();
+
+                  var name = $("#name").val();
+
+                  var rent = $("#rent").val();
+
+                  var period = $("#period").val();
+
+                  var description = $("#description").val();
+
+                  var image = $("#productImage")[0].files[0]
+
+                  var category = $("#category").val();
+
+                  var regexName=/^[a-zA-Z]+([a-zA-Z\t]+)*$/;
+
+                  var regexNumber = /^[0-9]{1,6}$/;
+
+                  if(name == ""){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Name should not be empty.");
+
+                  }else if(category == ""){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Category should not be empty.");
+
+                  }else if(rent == ""){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Rent should not be empty.");
+
+                  }else if(period == ""){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Rental Period should not be empty.");
+
+                  }else if(description == ""){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Description should not be empty.");
+
+                  }else if(!productImage){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Upload a suitable Product Image.");
+
+                  }else if(!regexName.test(name)){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Enter a valid product name.");
+
+                  }else if(!regexName.test(category)){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Enter a valid product category.");
+
+                  }else if(!regexNumber.test(rent)){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Enter a valid rent value.");
+
+                  }else if(!regexNumber.test(period)){
+
+                    $("#errorMessage").removeClass("hidden");
+
+                    $("#errorMessage").addClass("alert-danger");
+
+                    $("#errorMessage").html("Enter a valid value for rental period.");
+
+                  }else{
+
+                      $.ajax({
+
+                        url:"/check-valid-category",
+
+                        method:"POST",
+
+                        data:{
+
+                          category : category
+
+                        },
+                        statusCode:{
+
+                          200:function(){
+
+                            addProductAJAX();
+
+                          },
+                          404 : function(){
+
+                            $("#errorMessage").removeClass("hidden");
+
+                            $("#addProduct").val("Add Product");
+
+                            $("#errorMessage").addClass("alert-danger");
+
+                            $("#errorMessage").html("Add a valid category.");
+
+
+                          }
+
+                        }
+
+                      });
+
+                  }
+
+              });
+
+          });
+
+        </script>
+
+      </body>
+
+</html>

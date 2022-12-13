@@ -1,0 +1,329 @@
+<html>
+
+    <head>
+
+        <title>Category List</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <script src="jquery.min.js"></script>
+
+        <script src="/socket.io/socket.io.js"></script>
+
+        <style type="text/css">
+
+            #siteTitle{
+
+                font-family:'Pacifico', cursive;
+                color:lightgrey;
+                padding-left: 4px;
+
+            }
+
+            .jumbotron{
+
+                background-image: url(bgi.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                min-height:91%;
+
+            }
+
+            .card-img-top{
+
+              max-height: 180px;
+              max-width: 318px;
+              width: auto;
+              height: auto;
+
+            }
+
+            .rowModify{
+
+              margin-top : 10px;
+              margin-bottom : 10px;
+              padding-top: 10px;
+              padding-bottom : 10px;
+
+            }
+
+			      #chatBtn{
+
+                position: fixed;
+                bottom: 10px;
+                right:20px;
+
+            }
+
+            textarea{
+
+                resize: none;
+                width:40%;
+                border: 1px solid black;
+
+
+            }
+
+            #sendMessage{
+
+                width:45px;
+                height:45px;
+                border-radius: 50%;
+                color: white;
+
+            }
+
+            .modal-body{
+
+                min-height:50%;
+            }
+
+            .user{
+
+                background-color: lightgreen;
+                display: block;
+                padding: 6px;
+                border-radius: 4px;
+                margin-top: 4px;
+                margin-bottom: 4px;
+                margin-right: 4px;
+                float: left;
+            }
+
+            .customercare{
+
+                background-color: lightgrey;
+                display: block;
+                padding: 3px;
+                border-radius: 4px;
+                margin-top:4px;
+                margin-bottom: 4px;
+                margin-left: 4px;
+                margin-right: 8px;
+                float: right;
+
+            }
+
+            .clear{
+
+                clear: both;
+
+            }
+
+            .messages{
+
+                list-style-type: none;
+                overflow-y: auto;
+                margin-left: 5px;
+            }
+
+            .chatSendRow{
+
+                position: fixed;
+                bottom: 10px;
+                width: 100%;
+
+            }
+
+            .chatSend{
+
+                padding-top: 10px;
+
+            }
+
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-toggleable-md navbar-light bg-inverse">
+
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#menu">
+
+            <span class="navbar-toggler-icon"></span>
+
+          </button>
+
+            <a class="navbar-brand" href="#">
+
+                <img src="logo2.jpg" width="40" height="40" class="d-inline-block align-top" alt="Logo">
+
+                <span id="siteTitle">Temp $olutions</span>
+
+            </a>
+
+            <div class="collapse navbar-collapse" id="menu">
+
+              <ul class="navbar-nav ml-auto" id="menuList">
+
+
+
+              </ul>
+
+            </div>
+
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid">
+
+            <div class="container">
+
+                {{#display categories}}
+
+                    {{> categoryCard}}
+
+                {{/display}}
+
+            </div>
+
+        </div>
+
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#chatScreen" id="chatBtn">
+
+            <img src="glyphicons-310-comments.png" alt="C">
+
+        </button>
+
+
+        <!-- Modal -->
+
+        <div class="modal fade" id="chatScreen" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="exampleModalLabel">User Helpline</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                            <span aria-hidden="true">&times;</span>
+
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        <ul class="messages">
+
+
+                        </ul>
+
+                        <div class="row chatSendRow" >
+
+                            <div class="col-md-10"><textarea id="userMessage" class="form-control" rows=3></textarea></div>
+
+                            <div class="col-md-2 chatSend"><button type="button" id="sendMessage" class="btn-success"><span class="glyphicons glyphicons-ok">&#xe207;</span></button></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <script type="text/javascript">
+
+        var socket = io();
+
+          function loadSection(){
+
+            $.ajax({
+
+              url:"/check-login",
+              method:"GET",
+              statusCode:{
+
+                200:function(){
+
+                  let content = $("#menuList").html();
+                  content += '<li class="nav-item"><a class="nav-link text-white" href="logout.html">Logout</a></li>';
+                  $("#menuList").html(content);
+
+                },
+                401:function(){
+
+                  let content = $("#menuList").html();
+                  content += '<li class="nav-item"><a class="nav-link text-white" href="login.html">Login</a></li>';
+                  $("#menuList").html(content);
+
+                }
+
+              }
+
+            });
+
+          }
+
+          $(window).on("load",function(){
+
+            loadSection();
+
+          });
+
+          socket.on('connect',function(){
+
+            socket.emit('joinChatRoom',"I want to join the chat room.");
+
+          });
+
+          $("#sendMessage").click(function(){
+
+            var msg = $("#userMessage").val();
+
+            socket.emit("newMessage",msg);
+
+            var str = `<li class="user">${msg}</li><li class="clear"></li>`;
+
+            $(".messages").append(str);
+
+            $("#userMessage").val("");
+
+          });
+
+          socket.on("serverMessage",function(data){
+
+            var str = `<li class="customercare">${data}</li><li class="clear"></li>`;
+
+            $(".messages").append(str);
+
+            $("#chatBtn").removeClass("btn-primary");
+
+            $("#chatBtn").addClass("btn-danger");
+
+          });
+
+          $("#chatBtn").click(function(){
+
+              $(this).removeClass("btn-danger");
+
+              $(this).addClass("btn-primary");
+
+          });
+
+
+        </script>
+
+    </body>
+
+</html>

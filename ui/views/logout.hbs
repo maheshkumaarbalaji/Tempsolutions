@@ -1,0 +1,134 @@
+<html>
+
+    <head>
+
+        <title>Logout</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css?family=Abril+Fatface" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+
+        <link rel="shortcut icon" href="favicon.ico">
+
+        <script src="jquery.min.js"></script>
+
+        <style type="text/css">
+
+            #siteTitle{
+
+                font-family:'Pacifico', cursive;
+                color:lightgrey;
+                padding-left: 4px;
+
+            }
+
+            .jumbotron{
+
+                background-image: url(bgi.jpg);
+                background-size: cover;
+                background-repeat: no-repeat;
+                min-height:91%;
+
+            }
+
+            .logoutText{
+
+                position: fixed;
+                top:230px;
+                left:27%;
+                right:10%;
+                box-sizing: border-box;
+                color:black;
+                background-color: lightgreen;
+
+            }
+
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-light navbar-toggleable-md bg-inverse">
+
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#newProduct" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+              <span class="navbar-toggler-icon"></span>
+
+          </button>
+
+            <a class="navbar-brand" href="#">
+
+                <img src="logo2.jpg" width="40" height="40" class="d-inline-block align-top" alt="Logo">
+
+                <span id="siteTitle">Temp $olutions</span>
+
+
+            </a>
+
+            <div class="navbar navbar-collapse" id="newProduct">
+
+              <ul class="navbar-nav ml-auto" id="menuList">
+
+
+              </ul>
+
+            </div>
+
+
+        </nav>
+
+        <div class="jumbotron jumbotron-fluid">
+
+            <div class="container">
+
+                <div class="logoutText">
+
+                  You were logged out successfully.&nbsp;&nbsp; You will be redirected to the homepage in <span id="secondsCount" class="text-primary">10</span> seconds.
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <script type = "text/javascript">
+
+        var secondCount = 10 , secondCountFlag;
+
+                function secondCountPrint(){
+
+                    secondCount--;
+
+                    $("#secondsCount").html("" + secondCount);
+
+                    if(secondCount==0){
+
+                        clearInterval(secondCountFlag);
+
+                        window.location="home.html";
+
+                    }
+
+                }
+
+                secondCountFlag = setInterval(function(){
+
+                        secondCountPrint()
+
+                    },1000);
+
+        </script>
+
+    </body>
+
+</html>
