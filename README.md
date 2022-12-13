@@ -2,7 +2,7 @@
 
 *Developed using NodeJS, Express and MongoDB*
 
-**Website** - (Tempsolutions)[https://tempsolutions.azurewebsites.net]
+**Website** - [Tempsolutions](https://tempsolutions.azurewebsites.net)
 
 # Table of Contents
 
