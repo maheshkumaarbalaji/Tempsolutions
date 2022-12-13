@@ -1,4 +1,4 @@
-require('dotenv').config({path: __dirname + '/../.env'});
+require('dotenv').config({path: __dirname + '/.env'});
 var express = require('express');
 var morgan = require('morgan');
 var path = require('path');
@@ -11,23 +11,23 @@ var multer = require('multer');
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
-var {User} = require('./models/User.js');
-var {mongoose} = require('./connection/mongoose.js');
-var {Product} = require('./models/Product.js');
+var {User} = require('./server/models/User.js');
+var {mongoose} = require('./server/connection/mongoose.js');
+var {Product} = require('./server/models/Product.js');
 var upload = multer({dest : 'server/Images'});
-var {authenticate} = require('./middleware/authenticate.js');
-var {authenticateAJAX} = require('./middleware/authenticateAJAX.js');
-var {Category} = require('./models/Category.js');
-var {saleDetail} = require('./models/SaleDetails.js');
+var {authenticate} = require('./server/middleware/authenticate.js');
+var {authenticateAJAX} = require('./server/middleware/authenticateAJAX.js');
+var {Category} = require('./server/models/Category.js');
+var {saleDetail} = require('./server/models/SaleDetails.js');
 
-hbs.registerPartials(__dirname + '/../ui/views');
-app.use(express.static(__dirname + '/static/About'));
-app.use(express.static(__dirname + '/static/Images'));
-app.use(express.static(__dirname + '/static/support-us'));
-app.use(express.static(__dirname + '/static/animated icon'));
-app.use(express.static(__dirname + '/Images'));
+hbs.registerPartials(__dirname + '/ui/views');
+app.use(express.static(__dirname + '/server/static/About'));
+app.use(express.static(__dirname + '/server/static/Images'));
+app.use(express.static(__dirname + '/server/static/support-us'));
+app.use(express.static(__dirname + '/server/static/animated icon'));
+app.use(express.static(__dirname + '/server/Images'));
 app.set('view engine','hbs');
-app.set('views',path.join(__dirname,'../ui/views'));
+app.set('views',path.join(__dirname,'ui/views'));
 app.use(morgan('combined'));
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({extended : true}));
@@ -48,7 +48,7 @@ hbs.registerHelper('display',(data,template) => {
         if((i+1) % 3 === 0){
 
             ret += template.fn(data[i]);
-            ret += "</div><div class='row rowModify'>"
+            ret += "</div><div class='row rowModify'>";
 
         }else{
 
@@ -57,7 +57,7 @@ hbs.registerHelper('display',(data,template) => {
         }
     }
 
-    ret += "</div>"
+    ret += "</div>";
 
     return ret;
 
@@ -88,75 +88,75 @@ io.on('connection',(socket) => {
 app.get("/",(req,res) => {
 
     req.session.lvpage = {src : "categories.html"};
-    res.status(200).sendFile(path.join(__dirname,'../ui','home.html'));
+    res.status(200).sendFile(path.join(__dirname,'ui','home.html'));
 
 });
 
 app.get("/home.html",(req,res) => {
 
     req.session.lvpage = {src : "categories.html"};
-    res.status(200).sendFile(path.join(__dirname,'../ui','home.html'));
+    res.status(200).sendFile(path.join(__dirname,'ui','home.html'));
 
 });
 
 app.get("/favicon.ico",(req,res) => {
 
-  res.status(200).sendFile(path.join(__dirname,'favicon.ico'));
+  res.status(200).sendFile(path.join(__dirname,'server/favicon.ico'));
 
 });
 
 app.get("/embed.html",(req,res) => {
 
-    res.status(200).sendFile(path.join(__dirname,'../ui','embed.html'));
+    res.status(200).sendFile(path.join(__dirname,'ui','embed.html'));
 
 });
 
 app.get("/embed1.html",(req,res) => {
 
-    res.status(200).sendFile(path.join(__dirname,'../ui','embed1.html'));
+    res.status(200).sendFile(path.join(__dirname,'ui','embed1.html'));
 
 });
 
 app.get("/responsive.html",(req,res) => {
 
-    res.status(200).sendFile(path.join(__dirname,'../ui','responsive.html'));
+    res.status(200).sendFile(path.join(__dirname,'ui','responsive.html'));
 
 });
 
 app.get("/responsive1.html",(req,res) => {
 
-    res.status(200).sendFile(path.join(__dirname,'../ui','responsive1.html'));
+    res.status(200).sendFile(path.join(__dirname,'ui','responsive1.html'));
 
 });
 
 app.get("/shopregister.html",(req,res) => {
 
-    res.status(200).sendFile(path.join(__dirname,'../ui','shopregister.html'));
+    res.status(200).sendFile(path.join(__dirname,'ui','shopregister.html'));
 
 });
 
 app.get("/userregister.html",(req,res) => {
 
-    res.status(200).sendFile(path.join(__dirname,'../ui','userregister.html'));
+    res.status(200).sendFile(path.join(__dirname,'ui','userregister.html'));
 
 });
 
 app.get("/login.html",(req,res) => {
 
-  res.status(200).sendFile(path.join(__dirname,'../ui','login.html'));
+  res.status(200).sendFile(path.join(__dirname,'ui','login.html'));
 
 });
 
 app.get("/newProduct.html",(req,res) => {
 
   req.session.lvpage = {src : "newProduct.html"};
-  res.status(200).sendFile(path.join(__dirname,'../ui','newProduct.html'));
+  res.status(200).sendFile(path.join(__dirname,'ui','newProduct.html'));
 
 });
 
 app.get("/jquery.min.js",(req,res) => {
 
-  res.status(200).sendFile(path.join(__dirname,'../jquery.min.js'));
+  res.status(200).sendFile(path.join(__dirname,'jquery.min.js'));
 
 });
 
@@ -206,7 +206,7 @@ app.post("/login",(req,res) => {
     user.generateAuthToken().then((token) => {
 
       req.session.auth = {sessionId : token};
-      let obj = {source : req.session.lvpage.src}
+      let obj = {source : req.session.lvpage.src};
       res.status(200).send(obj);
 
     }).catch((err) => {

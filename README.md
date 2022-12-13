@@ -20,7 +20,7 @@ Tempsolutions is an online rental platform developed using NodeJs and hosted on 
 - Furnitures (Chairs, tables, sofa etc.)
 - House-hold decorations (Florescent lights, party banners etc.)
 
-User of the site can view the various products and categories offered without logging in or registering to the site. But to rent a product, they have to register a new account or login with an existing account. 
+User of the site can view the various products and categories offered without logging in or registering to the site. But to rent a product, they have to register a new account or login with an existing account. Rent is calculated as 12% of the product amount displayed on screen.
 
 ## Technologies Used
 
