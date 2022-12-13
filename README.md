@@ -1,16 +1,16 @@
-## Tempsolutions
+# Tempsolutions
 
 *Developed using NodeJS, Express and MongoDB*
 
 **Website** - [Tempsolutions](https://tempsolutions.azurewebsites.net)
 
-# Table of Contents
+## Table of Contents
 
 - [About](https://github.com/cfts-mkb/tempsolutions#about)
 - [Technologies Used](https://github.com/cfts-mkb/tempsolutions#technologies-used)
 - [Tools Used](https://github.com/cfts-mkb/tempsolutions#tools-used)
 
-# About
+## About
 
 Tempsolutions is an online rental platform developed using NodeJs and hosted on Azure cloud platform. It allows users to rent products for a set duration of time rather than purchasing it permanently, thereby saving money. Given below are the various products available for rent in the site.
 
@@ -22,7 +22,7 @@ Tempsolutions is an online rental platform developed using NodeJs and hosted on 
 
 User of the site can view the various products and categories offered without logging in or registering to the site. But to rent a product, they have to register a new account or login with an existing account. 
 
-# Technologies Used
+## Technologies Used
 
 - NodeJS
 - Hypertext Markup Lanaguage (HTML)
@@ -33,7 +33,7 @@ User of the site can view the various products and categories offered without lo
 - Mongoose (ORM for MongoDB)
 - JSON Webtokens
 
-# Tools Used
+## Tools Used
 
 - Node Package Manager (Latest Version)
 - Node JS (Latest LTI Version)
