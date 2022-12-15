@@ -38,5 +38,5 @@ User of the site can view the various products and categories offered without lo
 - Node Package Manager (Latest Version)
 - Node JS (Latest LTI Version)
 - Visual Studio Code
-- Git
+- Git SCM
 - MongoDB Compass
