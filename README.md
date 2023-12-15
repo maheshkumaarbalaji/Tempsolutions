@@ -6,9 +6,9 @@
 
 ## Table of Contents
 
-- [About](https://github.com/cfts-mkb/tempsolutions#about)
-- [Technologies Used](https://github.com/cfts-mkb/tempsolutions#technologies-used)
-- [Tools Used](https://github.com/cfts-mkb/tempsolutions#tools-used)
+- [About](https://github.com/maheshkumaarbalaji/tempsolutions#about)
+- [Technologies Used](https://github.com/maheshkumaarbalaji/tempsolutions#technologies-used)
+- [Tools Used](https://github.com/maheshkumaarbalaji/tempsolutions#tools-used)
 
 ## About
 
